@@ -1,0 +1,19 @@
+{
+  "name": "coding-academy",
+  "version": "1.0.0",
+  "description": "Coding excersice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milivoje90/coding-academy.git"
+  },
+  "author": "milipualic@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/milivoje90/coding-academy/issues"
+  },
+  "homepage": "https://github.com/milivoje90/coding-academy#readme"
+}
