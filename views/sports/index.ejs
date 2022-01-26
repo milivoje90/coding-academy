@@ -35,17 +35,24 @@
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
+              <% if(sports.length > 0) { %>
+                <% sports.forEach(sport => { %>
+                  <tr>
+                    <td><%= sport.id %></td>
+                    <td><%= sport.sport_name %></td>
+                    <td><%= sport.status %></td>
+                  </tr>
+                <% }); %> 
+              <% } else { %>
               <tr>
-                <td>1001</td>
-                <td>Football</td>
+                <td>No results to show</td>
+                <td></td>
               </tr>
-              <tr>
-                <td>1002</td>
-                <td>Rugby</td>
-              </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
