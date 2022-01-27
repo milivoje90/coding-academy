@@ -148,13 +148,43 @@ app.post("/teams", function (req, res) {
 app.get("/events", function (req, res){
 
     const connection = getMySQLConnection();
-    connection.query("SELECT * from events", function (err, rows, fields) {
+    connection.query("SELECT events.*, ht.name AS host_name, gt.name AS guest_name, sports.sport_name AS sport_name from events JOIN teams AS ht on ht.id = events.host_team JOIN teams AS gt on gt.id = events.guest_team JOIN sports on sports.id = ht.sport", function (err, rows, fields) {
       if (err) {
         res
           .status(500)
           .json({ status_code: 500, status_message: "internal server error" });
       } else {
         res.render("events/index", {
+            days: [
+                {
+                  id: 0,
+                  val: "Sun",
+                },
+                {
+                  id: 1,
+                  val: "Mon",
+                },
+                {
+                  id: 2,
+                  val: "Tue",
+                },
+                {
+                  id: 3,
+                  val: "Wed",
+                },
+                {
+                  id: 4,
+                  val: "Thu",
+                },
+                {
+                  id: 5,
+                  val: "Fri",
+                },
+                {
+                  id: 6,
+                  val: "Sat",
+                },
+              ],
             title: "Events Page",
             events: rows,
         });
@@ -197,11 +227,12 @@ app.post("/events", function (req, res) {
 
     const date = req.body.date;
     const dateArray = date.split("/");
-    const formattedDate = dateArray[2] + '/' + dateArray[0] + '/' + dateArray[1];
+
+    const formattedDate = dateArray[2] + '/' + dateArray[0] + '/' + dateArray[1] + ' ' + req.body.time + ':00';
     
     console.log(req.body);
     connection.query(
-        "INSERT INTO `events` (`event_name`, `event_date`, `event_time`, `host_team`, `guest_team`, `location`) VALUES ('" + req.body.name + "','"+ formattedDate +"','"+ req.body.time +"','"+ req.body.host +"', '"+ req.body.guest +"', '"+ req.body.location +"' );",
+        "INSERT INTO `events` (`event_name`, `event_date_time`, `host_team`, `guest_team`, `location`) VALUES ('" + req.body.name + "','"+ formattedDate +"','"+ req.body.host +"', '"+ req.body.guest +"', '"+ req.body.location +"' );",
         function (err, rows, fields) {
           if (err) {
             console.log(err);
