@@ -13,10 +13,11 @@ npm install
 
 ## create tables
 
-node database/createEventTable.js
 node database/createSportsTable.js
 node database/createTeamsTable.js
+node database/createEventTable.js
 
 ## run application
 
 npm run dev
+

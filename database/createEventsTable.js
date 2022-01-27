@@ -10,7 +10,7 @@ connection.query(
           console.log(err);
         console.log("internal server error");
       } else {
-        console.log("Sports table create success");
+        console.log("Events table create success");
         return;
       }
     }
