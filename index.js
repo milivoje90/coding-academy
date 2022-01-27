@@ -145,6 +145,82 @@ app.post("/teams", function (req, res) {
     });
 });
 
+app.get("/events", function (req, res){
+
+    const connection = getMySQLConnection();
+    connection.query("SELECT * from events", function (err, rows, fields) {
+      if (err) {
+        res
+          .status(500)
+          .json({ status_code: 500, status_message: "internal server error" });
+      } else {
+        res.render("events/index", {
+            title: "Events Page",
+            events: rows,
+        });
+      }
+    });
+    connection.end(function (err) {
+      if (err) {
+        return console.log(err.message);
+      }
+    });
+});
+
+app.get("/events/add", function (req, res){
+    
+    const connection = getMySQLConnection();
+    connection.connect();
+  
+    connection.query("SELECT * FROM teams", function (err, rows, fields) {
+      if (err) {
+        res
+          .status(500)
+          .json({ status_code: 500, status_message: "internal server error" });
+      } else {
+        res.render("events/add", {
+          title: "Add Event",
+          teams: rows,
+        });
+      }
+    });
+    connection.end(function (err) {
+      if (err) {
+        return console.log(err.message);
+      }
+    });  
+});
+
+app.post("/events", function (req, res) {
+    const connection = getMySQLConnection();
+    connection.connect();
+
+    const date = req.body.date;
+    const dateArray = date.split("/");
+    const formattedDate = dateArray[2] + '/' + dateArray[0] + '/' + dateArray[1];
+    
+    console.log(req.body);
+    connection.query(
+        "INSERT INTO `events` (`event_name`, `event_date`, `event_time`, `host_team`, `guest_team`, `location`) VALUES ('" + req.body.name + "','"+ formattedDate +"','"+ req.body.time +"','"+ req.body.host +"', '"+ req.body.guest +"', '"+ req.body.location +"' );",
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            res
+              .status(500)
+              .json({ status_code: 500, status_message: "internal server error" });
+          } else {
+            res.redirect("/events");
+          }
+        }
+      );
+
+    connection.end(function (err){
+        if (err){
+            return console.log(err.message);
+        }
+    });
+});
+
 
 app.listen(8080, function (err){
     if(err) throw err;

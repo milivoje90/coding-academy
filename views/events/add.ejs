@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') %>
+<link
+    href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+    rel="stylesheet"
+  />
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+      $("#datepicker-13").datepicker();
+    });
+  </script>
+</html>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <%- include('../partials/sidebar') %>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="
+            d-flex
+            justify-content-between
+            flex-wrap flex-md-nowrap
+            align-items-center
+            pt-3
+            pb-2
+            mb-3
+            border-bottom
+          ">
+                    <h1 class="h2"><%= title %></h1>
+                </div>
+
+                <form action="/events" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control" id="name" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Date</label>
+                        <div class="input-group date" id="datepicker">
+                          <input type="text" class="form-control" id="datepicker-13" name="date"/>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="time" class="form-label">Time</label>
+                        <input type="text" name="time" class="form-control" id="time" />
+                    </div>
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="host">Host Team</label>
+                        <select class="form-select" id="host" name="host">
+                          <option selected>Choose...</option>
+                          <% if(teams.length > 0) { %>
+                            <% teams.forEach(team => { %>
+                              <option value="<%= team.id %>" ><%= team.name %> </option>
+                            <% }); %>
+                          <% } %>
+                        </select>
+                      </div>
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="guest">Guest Team</label>
+                        <select class="form-select" id="guest" name="guest">
+                          <option selected>Choose...</option>
+                          <% if(teams.length > 0) { %>
+                            <% teams.forEach(team => { %>
+                              <option value="<%= team.id %>" ><%= team.name %> </option>
+                            <% }); %>
+                          <% } %>
+                        </select>
+                      </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="location" class="form-control" id="location" />
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </main>
+        </div>
+    </div>
+</body>
