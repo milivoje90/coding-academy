@@ -36,34 +36,27 @@
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Sport</th>
+                <th scope="col">Short Name</th>
+                <th scope="col">Home City</th>
               </tr>
             </thead>
             <tbody>
+              <% if(teams.length > 0) { %>
+                <% teams.forEach(team => { %>
+                  <tr>
+                    <td><%= team.id %></td>
+                    <td><%= team.name %></td>
+                    <td><%= team.sport_name %></td>
+                    <td><%= team.short_name %></td>
+                    <td><%= team.home_city %></td>
+                  </tr>
+                <% }); %> 
+              <% } else { %>
               <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>Football</td>
+                <td>No results to show</td>
+                <td></td>
               </tr>
-              <tr>
-                <td>1,002</td>
-                <td>placeholder</td>
-                <td>Cricket</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>data</td>
-                <td>Golf</td>
-              </tr>
-              <tr>
-                <td>1,003</td>
-                <td>information</td>
-                <td>Rugby</td>
-              </tr>
-              <tr>
-                <td>1,004</td>
-                <td>text</td>
-                <td>Volleyball</td>
-              </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
